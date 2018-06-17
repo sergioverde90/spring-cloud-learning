@@ -1,0 +1,9 @@
+spring:
+ cloud:
+  config:
+   enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8090/eureka/
