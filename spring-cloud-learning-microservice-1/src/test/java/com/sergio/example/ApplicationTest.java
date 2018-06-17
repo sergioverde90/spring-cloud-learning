@@ -1,4 +1,4 @@
-package com.sergio.example.springcloudlearningmicroservice1;
+package com.sergio.example;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringCloudLearningMicroservice1ApplicationTests {
+public class ApplicationTest {
 
 	@Test
 	public void contextLoads() {

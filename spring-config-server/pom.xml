@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>Spring config server</name>
-	<description>Centralized microservice to manage configurations.</description>
+	<description>C</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
