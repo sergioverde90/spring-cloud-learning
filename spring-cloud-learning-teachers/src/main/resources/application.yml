@@ -1,0 +1,14 @@
+server:
+ port: 9090
+
+# enable spring cloud config client
+spring:
+ cloud:
+  config:
+   enabled: true
+
+# register in Eureka
+eureka:
+ client:
+  serviceUrl:
+   defaultZone: http://localhost:8090/eureka/
