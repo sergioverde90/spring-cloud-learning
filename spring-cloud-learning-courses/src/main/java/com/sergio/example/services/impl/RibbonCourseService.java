@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class SimpleCourseServiceImpl implements CourseService {
+public class RibbonCourseService implements CourseService {
 
     private static Map<UUID, Course> courses;
 
@@ -26,7 +26,7 @@ public class SimpleCourseServiceImpl implements CourseService {
     // providing a RestTemplate @Bean annotated with @LoadBalancer
     private final RestTemplate restTemplate;
 
-    public SimpleCourseServiceImpl(RestTemplate restTemplate) {
+    public RibbonCourseService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
         Map<UUID, Course> allCourses = new HashMap<>();
         Course course = Course.builder()
