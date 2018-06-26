@@ -1,5 +1,6 @@
 package com.sergio.example.config;
 
+import com.sergio.example.repositories.CourseRepository;
 import com.sergio.example.services.CourseService;
 import com.sergio.example.services.impl.FeignCourseService;
 import com.sergio.example.services.impl.RibbonCourseService;
@@ -13,8 +14,15 @@ import org.springframework.web.client.RestTemplate;
 public class CourseConfiguration {
 
     @Bean
-    public CourseService courseService(FeignCourseService.TeachersFeignClient teachersFeignClient) {
-        return new FeignCourseService(teachersFeignClient);
+    public CourseService courseService(
+            CourseRepository courseRepository,
+            FeignCourseService.TeachersFeignClient teachersFeignClient) {
+        return new FeignCourseService(courseRepository, teachersFeignClient);
+    }
+
+    @Bean
+    public CourseRepository courseRepository() {
+        return new CourseRepository();
     }
 
     @Bean

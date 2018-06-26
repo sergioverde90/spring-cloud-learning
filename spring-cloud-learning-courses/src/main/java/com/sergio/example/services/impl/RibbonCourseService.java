@@ -1,5 +1,6 @@
 package com.sergio.example.services.impl;
 
+import com.sergio.example.repositories.CourseRepository;
 import com.sergio.example.resources.Course;
 import com.sergio.example.resources.CourseAggregate;
 import com.sergio.example.resources.Teacher;
@@ -8,17 +9,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class RibbonCourseService implements CourseService {
-
-    private static Map<UUID, Course> courses;
 
     // this restTemplate class is improved by Ribbon,
     // with this we can query directly using the service name.
@@ -26,32 +20,25 @@ public class RibbonCourseService implements CourseService {
     // providing a RestTemplate @Bean annotated with @LoadBalancer
     private final RestTemplate restTemplate;
 
-    public RibbonCourseService(RestTemplate restTemplate) {
+    private final CourseRepository courseRepository;
+
+    public RibbonCourseService(CourseRepository courseRepository, RestTemplate restTemplate) {
+        this.courseRepository = courseRepository;
         this.restTemplate = restTemplate;
-        Map<UUID, Course> allCourses = new HashMap<>();
-        Course course = Course.builder()
-                .id(UUID.randomUUID())
-                .name("Spring Boot 2 - from scratch")
-                .teacherId("1")
-                .startDate(LocalDateTime.now())
-                .endDate(LocalDateTime.now().plusDays(7))
-                .build();
-        allCourses.put(course.getId(), course);
-        courses = Collections.unmodifiableMap(allCourses);
     }
 
     @Override
     public Set<CourseAggregate> getAll() {
         String baseTeachersUri = "http://teacher-service";
-
-        return courses.entrySet().parallelStream()
+        Set<Course> courses = courseRepository.getAll();
+        return courses.parallelStream()
                 .map(c -> {
-                    String teacherId = c.getValue().getTeacherId();
+                    String teacherId = c.getTeacherId();
                     ResponseEntity<Teacher> response = restTemplate
                             .exchange(baseTeachersUri + "/teachers/" + teacherId,
                                     HttpMethod.GET, null, Teacher.class);
                     return CourseAggregate.builder()
-                            .course(c.getValue())
+                            .course(c)
                             .teacher(response.getBody())
                             .build();
                 }).collect(Collectors.toSet());
