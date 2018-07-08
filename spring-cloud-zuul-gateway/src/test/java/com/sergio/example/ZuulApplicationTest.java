@@ -1,4 +1,4 @@
-package com.sergio.example.springcloudeurekaserver;
+package com.sergio.example;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringCloudEurekaServerApplicationTests {
+public class ZuulApplicationTest {
 
 	@Test
 	public void contextLoads() {

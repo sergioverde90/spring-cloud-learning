@@ -1,0 +1,9 @@
+server:
+ port: 5555
+
+eureka:
+ client:
+  registerWithEureka: true
+  fetchRegistry: true
+  serviceUrl:
+   defaultZone: http://localhost:8090/eureka/
