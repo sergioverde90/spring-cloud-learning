@@ -16,7 +16,7 @@ import java.util.UUID;
 public class CourseRepository {
 
 
-    @Value("${responsiveness.degradation}")
+    @Value("${info.responsiveness.degradation}")
     Boolean degradation;
 
     private static Map<UUID, Course> courses;
